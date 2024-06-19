@@ -1,4 +1,11 @@
 {
+  "KBN_saltlux": {
+    "file_name": "KBN_saltlux.json",
+    "columns": {
+      "prompt": "instruction",
+      "response": "output"
+    }
+  },
   "identity": {
     "file_name": "identity.json"
   },
