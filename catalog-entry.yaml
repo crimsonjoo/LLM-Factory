@@ -1,0 +1,19 @@
+name: KOLON BENIT LLM-Factory
+entries:
+  - title: KOLON BENIT LLM-Factory
+    label: text-to-image
+    short_description: |
+        LLM Fine-tuning platform in the form of UI and text to text generation in the CML platform.
+    long_description: |
+        This AMP contains the files to host LLMs and an accompanying UI. 
+        This AMP enables organizations to deploy LLM train & generation, currated by prompts from the user.
+    image_path: >-
+      https://raw.githubusercontent.com/crimsonjoo/LLaMA-Factory/main/KolonBenit.png
+    tags:
+      - Text Generation Webui
+      - LLMs Train
+      - Generative AI
+      - NLP
+      - Crimson Joo
+    git_url: 'https://github.com/crimsonjoo/LLaMA-Factory'
+    is_prototype: true

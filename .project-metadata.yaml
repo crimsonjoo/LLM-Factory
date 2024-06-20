@@ -1,0 +1,42 @@
+name: KOLON BENIT LLM-Factory
+description: |
+  KOLON BENIT WebUI base LLMs Train(Pre-train/Fine-tune) in the CML platform.
+
+author: JOO JUNG SOO
+specification_version: 1.0
+prototype_version: 1.0
+date: "2024-06-20"
+
+environment_variables:
+  PYTHONPATH:
+    default: "/home/cdsw/.local/lib/python3.10/site-packages"
+    description: "Leave this value as is. This is required by CML due to cml-addons module overriding user installed modules."
+    required: true
+
+runtimes:
+  - editor: JupyterLab
+    kernel: Python 3.10
+    edition: Nvidia GPU
+
+tasks:
+  - type: run_session
+    name: Install Dependencies
+    script: download_requirements.py
+    short_summary: Install Dependencies
+    kernel: python3
+    cpu: 32
+    memory: 256
+    gpu: 3
+    
+  - type: start_application
+    bypass_authentication : true
+    name: KOLON BENIT LLM-Factory
+    subdomain: LLaMA-Factory
+    script: start_app.py
+    short_summary: Create and start CML Text Generation WebUI application
+    long_summary: Create and start CML ext Generation WebUI application. Remember to enable unauthenticated app access for external access to the UI.
+    cpu: 32
+    memory: 256
+    gpu: 3
+    environment_variables:
+      TASK_TYPE: START_APPLICATION
