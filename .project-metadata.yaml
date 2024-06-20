@@ -33,8 +33,8 @@ tasks:
     name: KOLON BENIT LLM-Factory
     subdomain: LLaMA-Factory
     script: start_app.py
-    short_summary: Create and start CML Text Generation WebUI application
-    long_summary: Create and start CML ext Generation WebUI application. Remember to enable unauthenticated app access for external access to the UI.
+    short_summary: Create and start KOLON BENIT LLM-Factory application
+    long_summary: Create and start KOLON BENIT LLM-Factory application. Remember to enable unauthenticated app access for external access to the UI.
     cpu: 32
     memory: 256
     gpu: 3
