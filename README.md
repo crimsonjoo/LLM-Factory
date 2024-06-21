@@ -336,7 +336,7 @@ huggingface-cli login
 > Installation is mandatory.
 
 ```bash
-git clone --depth 1 https://github.com/crimsonjoo/LLaMA-Factory.git
+git clone --depth 1 https://github.com/crimsonjoo/LLM-Factory.git
 cd LLaMA-Factory
 pip install -e ".[torch,metrics]"
 ```
