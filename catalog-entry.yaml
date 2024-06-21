@@ -10,8 +10,8 @@ entries:
     image_path: >-
       https://raw.githubusercontent.com/crimsonjoo/LLaMA-Factory/main/KolonBenit.png
     tags:
-      - Text Generation Webui
-      - LLMs Train
+      - LLM Pre-train
+      - LLM Fine-tuning
       - Generative AI
       - NLP
       - Crimson Joo
