@@ -14,6 +14,13 @@
       "response": "output"
     }
   },
+  "KBN_namutech": {
+    "file_name": "KBN_namutech.json",
+    "columns": {
+      "prompt": "instruction",
+      "response": "output"
+    }
+  },
   "identity": {
     "file_name": "identity.json"
   },
