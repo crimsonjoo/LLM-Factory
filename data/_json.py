@@ -1,7 +1,7 @@
 import os
 import json
 import pandas as pd
-from datasets import load_dataset, Features, Value
+from datasets import load_dataset, Features, Value, Sequence
 
 # 현재 파이썬 파일이 위치한 디렉토리 경로
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -9,7 +9,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # 허깅페이스 데이터셋 이름 리스트
 dataset_names = [
-    'crimsonjoo/KBN_ex',
+    'crimsonjoo/KBN_ex_history_v0.1',
+    'crimsonjoo/KBN_ex_v0.1'
     # 여기에 다른 데이터셋 이름을 추가하세요
 ]
 
@@ -35,6 +36,7 @@ features = Features({
 
 # 데이터셋을 순차적으로 처리
 for dataset_name in dataset_names:
+
     # 데이터셋 로드
     dataset = load_dataset(dataset_name, split='train', features=features)
     df = pd.DataFrame(dataset)
@@ -45,15 +47,25 @@ for dataset_name in dataset_names:
     # 원하는 형식으로 데이터 프레임 변환
     json_data = []
     for _, row in df.iterrows():
-        json_data.append({
-            "system": row['system'],
-            "instruction": row['instruction'],
-            "input": row['input'],
-            "chosen": row['chosen'],
-            "rejected": row['rejected'],
-            "history": row['history']
-        })
-
+        
+        if "history" not in dataset_name: # <싱글턴>
+            json_data.append({
+                "system": row['system'],
+                "instruction": row['instruction'],
+                "input": row['input'],
+                "chosen": row['chosen'],
+                "rejected": row['rejected']
+            })
+        else:                             # <멀티턴>
+            history_list = json.loads(row['history']) if row['history'].strip().startswith("[") else row['history']
+            json_data.append({
+                "system": row['system'],
+                "instruction": row['instruction'],
+                "input": row['input'],
+                "chosen": row['chosen'],
+                "rejected": row['rejected'],
+                "history": history_list
+            })
 
     df_name = dataset_name.split('/')[1]
     # JSON 파일로 저장
@@ -64,18 +76,32 @@ for dataset_name in dataset_names:
         json.dump(json_data, f, ensure_ascii=False, indent=4)
 
     # dataset_info.json 업데이트
-    dataset_info[df_name] = {
-        "file_name": dataset_filename,
-        "ranking": True,
-        "columns": {
-            "system": "system",
-            "prompt": "instruction",
-            "query": "input",
-            "chosen": "chosen",
-            "rejected": "rejected",
-            "history": "history"
+    if "history" not in dataset_name: # <싱글턴>
+        dataset_info[df_name] = {
+            "file_name": dataset_filename,
+            "ranking": True,
+            "columns": {
+                "system": "system",
+                "prompt": "instruction",
+                "query": "input",
+                "chosen": "chosen",
+                "rejected": "rejected"
+            }
         }
-    }
+    else:                             # <멀티턴>
+        dataset_info[df_name] = {
+            "file_name": dataset_filename,
+            "ranking": True,
+            "columns": {
+                "system": "system",
+                "prompt": "instruction",
+                "query": "input",
+                "chosen": "chosen",
+                "rejected": "rejected",
+                "history": "history"
+            }
+        }
+    
 
 # 변경된 dataset_info.json 저장
 with open(dataset_info_path, 'w', encoding='utf-8-sig') as f:
