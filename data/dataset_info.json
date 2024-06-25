@@ -26,5 +26,12 @@
             "prompt": "instruction",
             "response": "output"
         }
+    },
+    "KBN_D_deepbrain": {
+        "file_name": "KBN_D_deepbrain.json",
+        "columns": {
+            "prompt": "instruction",
+            "response": "output"
+        }
     }
 }
