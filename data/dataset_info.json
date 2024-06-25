@@ -7,15 +7,22 @@
             "response": "output"
         }
     },
-    "KBN_saltlux": {
-        "file_name": "KBN_saltlux.json",
+    "KBN_D_saltlux": {
+        "file_name": "KBN_D_saltlux.json",
         "columns": {
             "prompt": "instruction",
             "response": "output"
         }
     },
-    "KBN_namutech": {
-        "file_name": "KBN_namutech.json",
+    "KBN_D_namutech": {
+        "file_name": "KBN_D_namutech.json",
+        "columns": {
+            "prompt": "instruction",
+            "response": "output"
+        }
+    },
+    "KBN_D_anothereal": {
+        "file_name": "KBN_D_anothereal.json",
         "columns": {
             "prompt": "instruction",
             "response": "output"
