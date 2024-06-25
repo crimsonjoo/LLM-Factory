@@ -1,16 +1,14 @@
 import os
 import json
 import pandas as pd
-from datasets import load_dataset, Features, Value, Sequence
+from datasets import load_dataset, Features, Value
 
 # 현재 파이썬 파일이 위치한 디렉토리 경로
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-
 # 허깅페이스 데이터셋 이름 리스트
 dataset_names = [
-    'crimsonjoo/KBN_ex_history_v0.1',
-    'crimsonjoo/KBN_ex_v0.1'
+    'crimsonjoo/KBN_ex_history_v0.1'
     # 여기에 다른 데이터셋 이름을 추가하세요
 ]
 
@@ -72,12 +70,15 @@ for dataset_name in dataset_names:
     dataset_filename = f"{df_name}.json"
     dataset_filepath = os.path.join(current_dir, dataset_filename)
     
-    with open(dataset_filepath, 'w', encoding='utf-8-sig') as f:
+    with open(dataset_filepath, 'w', encoding='utf-8') as f:  # BOM 없이 저장
         json.dump(json_data, f, ensure_ascii=False, indent=4)
 
     # dataset_info.json 업데이트
-    if "history" not in dataset_name: # <싱글턴>
-        dataset_info[df_name] = {
+
+    # <싱글턴>
+    if "history" not in dataset_name: 
+        # [ORPO] 형식
+        dataset_info[df_name+'_orpo'] = {
             "file_name": dataset_filename,
             "ranking": True,
             "columns": {
@@ -88,8 +89,22 @@ for dataset_name in dataset_names:
                 "rejected": "rejected"
             }
         }
-    else:                             # <멀티턴>
-        dataset_info[df_name] = {
+        # [SFT] 형식
+        dataset_info[df_name+'_sft'] = {
+            "file_name": dataset_filename,
+            "columns": {
+                "system": "system",
+                "prompt": "instruction",
+                "query": "input",
+                "response": "chosen",
+            }
+        }
+
+
+    # <멀티턴>
+    else:           
+        # [ORPO] 형식
+        dataset_info[df_name+'_orpo'] = {
             "file_name": dataset_filename,
             "ranking": True,
             "columns": {
@@ -101,10 +116,24 @@ for dataset_name in dataset_names:
                 "history": "history"
             }
         }
+        # [SFT] 형식
+        dataset_info[df_name+'_sft'] = {
+            "file_name": dataset_filename,
+            "columns": {
+                "system": "system",
+                "prompt": "instruction",
+                "query": "input",
+                "response": "chosen",
+                "history": "history"
+            }
+        }
+
+    print(f"\n{dataset_name} 데이터셋 json 저장 완료!")
+
     
 
 # 변경된 dataset_info.json 저장
-with open(dataset_info_path, 'w', encoding='utf-8-sig') as f:
+with open(dataset_info_path, 'w', encoding='utf-8') as f:  # BOM 없이 저장
     json.dump(dataset_info, f, ensure_ascii=False, indent=4)
 
-print("요청하신 KBN 데이터셋이 성공적으로 json 처리되었습니다.")
+print("\n---\n")
