@@ -337,7 +337,7 @@ huggingface-cli login
 
 ```bash
 git clone --depth 1 https://github.com/crimsonjoo/LLM-Factory.git
-cd LLaMA-Factory
+cd LLM-Factory
 pip install -e ".[torch,metrics]"
 ```
 
