@@ -68,7 +68,8 @@ class LogCallback(TrainerCallback):
         self.do_train = False
         """ Web UI """
         self.webui_mode = os.environ.get("LLAMABOARD_ENABLED", "0").lower() in ["true", "1"]
-        if self.webui_mode:
+        # if self.webui_mode:
+        if True:
             signal.signal(signal.SIGABRT, self._set_abort)
             self.logger_handler = LoggerHandler(output_dir)
             logging.root.addHandler(self.logger_handler)
@@ -188,7 +189,8 @@ class LogCallback(TrainerCallback):
             total_tokens=state.num_input_tokens_seen,
         )
         logs = {k: v for k, v in logs.items() if v is not None}
-        if self.webui_mode and all(key in logs for key in ["loss", "learning_rate", "epoch"]):
+        # if self.webui_mode and all(key in logs for key in ["loss", "learning_rate", "epoch"]):
+        if all(key in logs for key in ["loss", "learning_rate", "epoch"]):
             logger.info(
                 "{{'loss': {:.4f}, 'learning_rate': {:2.4e}, 'epoch': {:.2f}, 'throughput': {}}}".format(
                     logs["loss"], logs["learning_rate"], logs["epoch"], logs["throughput"]

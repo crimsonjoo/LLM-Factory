@@ -1,0 +1,2 @@
+llamafactory-cli train /home/cdsw/LLM-Factory/saves/Qwen2-7B/lora/train_2024-06-28_namutech_qwen2-7b_lora-5e-5_3.0_8_16_4_64_0.1_pissa/training_args.yaml
+llamafactory-cli train /home/cdsw/LLM-Factory/saves/Qwen2-7B/lora/train_2024-06-28_namutech_qwen2-7b_lora-5e-5_3.0_8_16_4_128_0.1_pissa/training_args.yaml
